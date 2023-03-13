@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Shitpost Generator</title>
+  </head>
+  <body>
+    <h1>Shitpost Generator</h1>
+    <form>
+      <label for="tweet_link">Enter tweet link:</label>
+      <input type="text" id="tweet_link" name="tweet_link" required>
+      <br>
+      <button type="submit">Generate Shitpost</button>
+    </form>
+    <br>
+    <div id="shitpost_reply"></div>
+    <script>
+      const form = document.querySelector('form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const tweetLink = document.getElementById('tweet_link').value;
+        const response = await fetch(`/generate?tweet_link=${tweetLink}`);
+        const data = await response.json();
+        const shitpostReply = data.shitpost_reply;
+        const replyDiv = document.getElementById('shitpost_reply');
+        replyDiv.innerText = `Shitpost reply: ${shitpostReply}`;
+      });
+    </script>
+  </body>
+</html>
